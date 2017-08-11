@@ -24,7 +24,7 @@ while True:
 ratings = []
 for i in files:
     with open(i, "r") as f:
-        read = csv.reader(f)
+        read = csv.reader(f, delimiter='|')
         for i in read:
             ratings.append(i)
 
