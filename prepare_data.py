@@ -7,25 +7,26 @@ import pickle
 
 dirContent = os.listdir("./")
 switch = False
+files = []
 while True:
     user = input("Username: ")
     if isinstance(user, str):
         for i in dirContent:
             if user in i:
                 if "csv" in i:
-                    file = i
+                    files.append(i)
                     switch = True
-                    break
         if switch: break
         else: pass
     else:
         pass
 
-with open(file, "r") as f:
-    read = csv.reader(f)
-    ratings = []
-    for i in read:
-        ratings.append(i)
+ratings = []
+for i in files:
+    with open(i, "r") as f:
+        read = csv.reader(f)
+        for i in read:
+            ratings.append(i)
 
 ratingsNew = []
 for i in ratings: ratingsNew.append(i[1])
