@@ -47,15 +47,14 @@ def loaddata():
         # break
     users = ["neur0", "jfb"]
     ratings = []
-    # machine = platform.machine()
-    # # print('machine: ' + machine)
-    # if (machine == 'armv7l'):
-    #     os.chdir('/sdcard/com.hipipal.qpyplus/projects3/LabPSU2m')
-    # wdir = (os.getcwd() + "/")
+    machine = platform.machine()
+    wdir = ("./")
+    if (machine == 'armv7l'):
+        wdir = ('/storage/emulated/0/qpython/scripts3')
     for i in users: ratings.append(i.split())
     for i in range(0, len(users)):
-        with open((users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
-        # with open((wdir + users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
+        # with open((users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
+        with open((wdir + users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
     return ratings
 
 
@@ -113,6 +112,7 @@ def main():
 
     print("---------------------------------------------------------\n"
           "| Start shopping - Enter Beer Name - Enter exit to quit |\n"
+          "|       " + colored("red", "red") + " means: not rated; " + colored("green", "green") + " means: rated        |\n"
           "---------------------------------------------------------")
     while True:
         search = input("> ")
