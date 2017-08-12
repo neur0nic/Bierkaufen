@@ -24,13 +24,13 @@ def loaddata():
         machine = platform.machine()
         wdir = ("./")
         if (machine == 'armv7l'):
-            wdir = ('/storage/emulated/0/qpython/scripts3')
+            wdir = ('/storage/emulated/0/qpython/scripts3/')
         inDir = os.listdir(wdir)
         for i in inDir:
             if i[-8:] == ".ratings":
                 available.append(i[0:-8])
 
-        amount = 2 #input("Shopping for how many Ratebeerians? ")
+        amount = input("Shopping for how many Ratebeerians? ")
         try: amount = int(amount)
         except: print("Please insert an integer ")
         users = []
@@ -62,7 +62,7 @@ def loaddata():
     machine = platform.machine()
     wdir = ("./")
     if (machine == 'armv7l'):
-        wdir = ('/storage/emulated/0/qpython/scripts3')
+        wdir = ('/storage/emulated/0/qpython/scripts3/')
     for i in users: ratings.append(i.split())
     for i in range(0, len(users)):
         # with open((users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
@@ -110,8 +110,10 @@ def colorize(matrix, user):
     for line in range(0, len(matrix)):
         for users in range(0, len(user)):
             if matrix[line][users + 1] == 0:
+                # newmatrix[line][users + 1] = ((user[users] + ":no"))
                 newmatrix[line][users + 1] = (colored(user[users], "red"))
             elif matrix[line][users + 1] == 1:
+                # newmatrix[line][users + 1] = ((user[users] + ":yes"))
                 newmatrix[line][users + 1] = (colored(user[users], "green"))
     for i in newmatrix:
         for j in i:
@@ -136,8 +138,6 @@ def main():
             found.append(sorted(searchbeer(ratings[i][1], search)))
 
         outputmatrix = mapresults(found)
-        # for i in outputmatrix:
-        #     print(str(i))
 
         users = [ratings[0][0], ratings[1][0]]
         colorize(outputmatrix, users)
