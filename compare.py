@@ -79,8 +79,6 @@ def mapresults(found):
         obj.append(matrix[i])
         matrix[i] = obj
 
-    # found [['bier1', 'bier2', 'bier3']['bier1', 'bier2']]
-    # matrix [['bier1'], ['bier2’], ['bier3']]
     newmatrix = matrix
     for beer in matrix:
         for userlisten in found:
@@ -94,6 +92,19 @@ def mapresults(found):
             else:
                 newmatrix[i].append(0)
     return newmatrix
+
+
+def colorize(matrix, user):
+    newmatrix = matrix
+    for line in range(0, len(matrix)):
+        for users in range(0, len(user)):
+            if matrix[line][users + 1] == 0:
+                newmatrix[line][users + 1] = (user[users] + " nein")#(colored(user[users], "red"))
+            elif matrix[line][users + 1] == 1:
+                newmatrix[line][users + 1] = (user[users] + " ja")#(colored(user[users], "green"))
+    for i in newmatrix:
+        print(i)
+
 
 
 def main():
@@ -112,8 +123,11 @@ def main():
             found.append(sorted(searchbeer(ratings[i][1], search)))
 
         outputmatrix = mapresults(found)
-        for i in outputmatrix:
-            print(str(i))
+        # for i in outputmatrix:
+        #     print(str(i))
+
+        users = [ratings[0][0], ratings[1][0]]
+        colorize(outputmatrix, users)
 
         break
 
