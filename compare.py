@@ -63,19 +63,62 @@ def searchbeer(userratings, srch):
             fnd.append(i)
     return fnd
 
-ratings = loaddata()
 
-print("---------------------------------------------------------\n"
-      "| Start shopping - Enter Beer Name - Enter exit to quit |\n"
-      "---------------------------------------------------------")
-while True:
-    search = input("> ")
-    if search == "exit":
-        break
-    found = []
-    colors = ['red', 'green', 'blue']
-    for i in range(0, len(ratings)):
-        temp = searchbeer(ratings[i][1], search)
-        found.append(temp)
-        print(colored(found[i], colors[i]))
+def mapresults(found):
+    matrix = []
+    for userliste in range(0, len(found)):
+        for beer in found[userliste]:
+            if beer not in matrix:
+                matrix.append(beer)
 
+    for i in range(0, len(matrix)):
+        obj = []
+        obj.append(matrix[i])
+        matrix[i] = obj
+
+    for i in range(0, len(found)):
+        for j in range(0, len(found[i])):
+            obj = []
+            obj.append(found[i][j])
+            found[i][j] = obj
+
+    thematrix = matrix
+    for users in range(0, len(found)):
+        for beers in range(0, len(matrix)):
+            if matrix[beers] in found[users]:
+                i1 = thematrix[beer]
+                i2 = found[users]
+                thematrix[i1].append(i2)
+    # for linie in matrix:
+    # for row in matrix:
+    #     for beer in found:
+    #         if beer == row[0]:
+    #             print(beer, row)
+
+    #     print(linie)
+
+    return thematrix
+
+
+def main():
+    ratings = loaddata()
+
+    print("---------------------------------------------------------\n"
+          "| Start shopping - Enter Beer Name - Enter exit to quit |\n"
+          "---------------------------------------------------------")
+    while True:
+        search = input("> ")
+        if search == "exit":
+            break
+
+        found = []
+        for i in range(0, len(ratings)):
+            found.append(sorted(searchbeer(ratings[i][1], search)))
+
+        outputmatrix = mapresults(found)
+        for i in outputmatrix:
+            print(str(i))
+
+
+if __name__ == '__main__':
+    main()
