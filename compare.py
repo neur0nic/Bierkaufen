@@ -76,28 +76,7 @@ def mapresults(found):
         obj.append(matrix[i])
         matrix[i] = obj
 
-    for i in range(0, len(found)):
-        for j in range(0, len(found[i])):
-            obj = []
-            obj.append(found[i][j])
-            found[i][j] = obj
-
-    thematrix = matrix
-    for users in range(0, len(found)):
-        for beers in range(0, len(matrix)):
-            if matrix[beers] in found[users]:
-                i1 = thematrix[beer]
-                i2 = found[users]
-                thematrix[i1].append(i2)
-    # for linie in matrix:
-    # for row in matrix:
-    #     for beer in found:
-    #         if beer == row[0]:
-    #             print(beer, row)
-
-    #     print(linie)
-
-    return thematrix
+    return 'arrrr'
 
 
 def main():
