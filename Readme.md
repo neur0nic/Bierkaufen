@@ -1,6 +1,6 @@
 # Ratebeer Shopping Helper
 
-This little script will help you buy beers for you and other <b>Ratebeerians</b>
+This little script will help you buy beers for you and other <b>Ratebeerians</b>.
 
 ### Purpose
 This script will allow you to search the ratings of you and your friends, and will show you who already rated the wanted beer.
@@ -15,8 +15,8 @@ This script will allow you to search the ratings of you and your friends, and wi
 If you run the program only on a computer item <b>4)</b> and <b>5)</b> are unnecessary.
 
 ### License
-This and all versions is/will be licensed under the GPLv3
+This and all versions is/will be licensed under the GPLv3.
 
 ### Disclaimer
-This is just a little fun project I do, so I can buy some beers for <i>jfb</i>'s next visit. There will be most likely no maintaining. If you find a bug in this project, you can contact me on www.github.com or on www.ratebeer.com/user/neur0.
+This is just a little fun project I do, so I can buy some beers for <i>jfb</i>'s next visit. There will be most likely no maintaining. If you find a bug in this project, you can contact me on www.github.com/neur0nic or on www.ratebeer.com/user/neur0.
 <br>This script is only tested on an Linux machine with Python 3.6 an an Android with QPython3

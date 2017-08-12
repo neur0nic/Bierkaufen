@@ -5,13 +5,14 @@
 import pickle
 import os
 from termcolor import colored
+import platform
 
 
 def loaddata():
     ## Load and sort data
     # while True:
     #     available = []
-    #     inDir = os.listdir("./")
+    #     inDir = os.listdir(wdir)
     #     for i in inDir:
     #         if i[-8:] == ".ratings":
     #             available.append(i[0:-8])
@@ -46,17 +47,19 @@ def loaddata():
         # break
     users = ["neur0", "jfb"]
     ratings = []
+    # machine = platform.machine()
+    # # print('machine: ' + machine)
+    # if (machine == 'armv7l'):
+    #     os.chdir('/sdcard/com.hipipal.qpyplus/projects3/LabPSU2m')
+    # wdir = (os.getcwd() + "/")
     for i in users: ratings.append(i.split())
     for i in range(0, len(users)):
         with open((users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
+        # with open((wdir + users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
     return ratings
 
 
 def searchbeer(userratings, srch):
-    # for i in userratings:
-    #     if queue in i:
-    #         print(colored(i, 'red'))
-
     fnd = []
     for i in userratings:
         if srch.lower() in i.lower():
@@ -64,7 +67,7 @@ def searchbeer(userratings, srch):
     return fnd
 
 
-def mapresults(found):
+def mapresults(found, ratings):
     matrix = []
     for userliste in range(0, len(found)):
         for beer in found[userliste]:
@@ -76,7 +79,19 @@ def mapresults(found):
         obj.append(matrix[i])
         matrix[i] = obj
 
-    return 'arrrr'
+    # found [['bier1', 'bier2', 'bier3']['bier1', 'bier2']]
+    # matrix [['bier1'], ['bier2’], ['bier3']]
+    x = []
+    i=0
+    for userlisten in found:
+        x.append(ratings[i][0])
+        for rating in userlisten:
+            for beer in matrix:
+                if rating in beer:
+                    x.append(beer)
+        i += 1
+
+    return x
 
 
 def main():
@@ -94,10 +109,9 @@ def main():
         for i in range(0, len(ratings)):
             found.append(sorted(searchbeer(ratings[i][1], search)))
 
-        outputmatrix = mapresults(found)
+        outputmatrix = mapresults(found, ratings)
         for i in outputmatrix:
             print(str(i))
-
 
 if __name__ == '__main__':
     main()
