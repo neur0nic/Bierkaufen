@@ -99,12 +99,13 @@ def colorize(matrix, user):
     for line in range(0, len(matrix)):
         for users in range(0, len(user)):
             if matrix[line][users + 1] == 0:
-                newmatrix[line][users + 1] = (user[users] + " nein")#(colored(user[users], "red"))
+                newmatrix[line][users + 1] = (colored(user[users], "red"))
             elif matrix[line][users + 1] == 1:
-                newmatrix[line][users + 1] = (user[users] + " ja")#(colored(user[users], "green"))
+                newmatrix[line][users + 1] = (colored(user[users], "green"))
     for i in newmatrix:
-        print(i)
-
+        for j in i:
+            print(j + " ", end="")
+        print("\n")
 
 
 def main():
@@ -128,8 +129,6 @@ def main():
 
         users = [ratings[0][0], ratings[1][0]]
         colorize(outputmatrix, users)
-
-        break
 
 if __name__ == '__main__':
     main()
