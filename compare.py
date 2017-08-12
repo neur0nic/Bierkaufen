@@ -2,6 +2,15 @@
 #qpy:console
 #qpy:2
 
+import pip
+
+# Check for all packages
+required_pkgs = ['termcolor']
+installed_pkgs = [pkg.key for pkg in pip.get_installed_distributions()]
+for package in required_pkgs:
+    if package not in installed_pkgs:
+        pip.main(['install', package])
+
 import pickle
 import os
 from termcolor import colored

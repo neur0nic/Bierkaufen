@@ -20,5 +20,8 @@ This and all versions is/will be licensed under the GPLv3.
 ### Disclaimer
 This is just a little fun project I do, so I can buy some beers for <i>jfb</i>'s next visit. There will be most likely no maintaining. If you find a bug in this project, you can contact me on www.github.com/neur0nic or on www.ratebeer.com/user/133619/.
 <br>This script is only tested on an Linux machine with Python 3.6 and an Android 4.2 with QPython3.
-#### Error - File not found
+#### Error
+#####- File not found
 If the program on your mobile device returns something like <i>file *.ratings not found</i>, you probably need to change <b>compare.py</b> line <b>53</b> to your actual working directory.
+#####- no module named termcolor
+I had to manually install the <i>termcolor</i> package to my Android app
