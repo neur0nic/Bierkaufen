@@ -82,14 +82,17 @@ def mapresults(found):
     # found [['bier1', 'bier2', 'bier3']['bier1', 'bier2']]
     # matrix [['bier1'], ['bier2’], ['bier3']]
     newmatrix = matrix
-    for userlisten in found:
-        for rating in userlisten:
-            for beer in matrix:
+    for beer in matrix:
+        for userlisten in found:
+            count = 0
+            for rating in userlisten:
                 i = newmatrix.index(beer)
                 if rating in beer:
-                    newmatrix[i].append(1)
-                else:
-                    newmatrix[i].append(0)
+                    count += 1
+            if count > 0:
+                newmatrix[i].append(1)
+            else:
+                newmatrix[i].append(0)
     return newmatrix
 
 
@@ -111,6 +114,8 @@ def main():
         outputmatrix = mapresults(found)
         for i in outputmatrix:
             print(str(i))
+
+        break
 
 if __name__ == '__main__':
     main()
