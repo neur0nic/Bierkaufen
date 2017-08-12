@@ -67,7 +67,7 @@ def searchbeer(userratings, srch):
     return fnd
 
 
-def mapresults(found, ratings):
+def mapresults(found):
     matrix = []
     for userliste in range(0, len(found)):
         for beer in found[userliste]:
@@ -81,17 +81,16 @@ def mapresults(found, ratings):
 
     # found [['bier1', 'bier2', 'bier3']['bier1', 'bier2']]
     # matrix [['bier1'], ['bier2’], ['bier3']]
-    x = []
-    i=0
+    newmatrix = matrix
     for userlisten in found:
-        x.append(ratings[i][0])
         for rating in userlisten:
             for beer in matrix:
+                i = newmatrix.index(beer)
                 if rating in beer:
-                    x.append(beer)
-        i += 1
-
-    return x
+                    newmatrix[i].append(1)
+                else:
+                    newmatrix[i].append(0)
+    return newmatrix
 
 
 def main():
@@ -109,7 +108,7 @@ def main():
         for i in range(0, len(ratings)):
             found.append(sorted(searchbeer(ratings[i][1], search)))
 
-        outputmatrix = mapresults(found, ratings)
+        outputmatrix = mapresults(found)
         for i in outputmatrix:
             print(str(i))
 
