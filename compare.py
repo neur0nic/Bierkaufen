@@ -30,9 +30,17 @@ def loaddata():
             if i[-8:] == ".ratings":
                 available.append(i[0:-8])
 
-        amount = input("Shopping for how many Ratebeerians? ")
-        try: amount = int(amount)
-        except: print("Please insert an integer ")
+        while True:
+            amount = input("Shopping for how many Ratebeerians? ")
+            try:
+                amount = int(amount)
+            except:
+                pass
+            if isinstance(amount, int):
+                break
+            else:
+                print("Please insert an integer ")
+                pass
         users = []
         k = 0
         for i in range(0, amount):
@@ -124,10 +132,10 @@ def colorize(matrix, user):
 def main():
     ratings = loaddata()
 
-    print("---------------------------------------------------------\n"
-          "| Start shopping - Enter Beer Name - Enter exit to quit |\n"
-          "|       " + colored("red", "red") + " means: not rated; " + colored("green", "green") + " means: rated        |\n"
-          "---------------------------------------------------------")
+    print("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n"
+          "┃ Start shopping - Enter Beer Name - Enter exit to quit ┃\n"
+          "┃       " + colored("red", "red") + " means: not rated; " + colored("green", "green") + " means: rated        ┃\n"
+          "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
     while True:
         search = input("> ")
         if search == "exit":
