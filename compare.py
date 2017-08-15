@@ -9,7 +9,7 @@ required_pkgs = ['termcolor']
 installed_pkgs = [pkg.key for pkg in pip.get_installed_distributions()]
 for package in required_pkgs:
     if package not in installed_pkgs:
-        pip.main(['install', package])
+        pip.main(['install', '--user', package])
 
 import pickle
 import os
@@ -147,7 +147,9 @@ def main():
 
         outputmatrix = mapresults(found)
 
-        users = [ratings[0][0], ratings[1][0]]
+        users = []
+        for i in ratings:
+            users.append(i[0])
         colorize(outputmatrix, users)
 
 if __name__ == '__main__':
