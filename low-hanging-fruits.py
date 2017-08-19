@@ -207,9 +207,9 @@ def biereSpeichern():
 def main():
     start_time = time()
 
-    brauereienAbgleichen()
-    brauerienInfosLaden()
-    bierlisteLaden()  # Bis hier bitte auskommentieren
+    # brauereienAbgleichen()
+    # brauerienInfosLaden()
+    # bierlisteLaden()  # Bis hier bitte auskommentieren
     biereAussortieren(sys.argv[2])
     doppelAussortieren()
     biereSpeichern()
