@@ -16,7 +16,6 @@ import os
 from termcolor import colored
 import platform
 
-
 def loaddata():
     # Load and sort data
     while True:
