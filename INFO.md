@@ -3,7 +3,7 @@
 ### Purpose
 After shopping with the `compare.py` script, I realised I was missing some pretty common ratings. This little
 program is looking for beers in Germany, Austria or Switzerland that have e.g. 100 and more ratings and hence is a
-common beer in that country.
+common beer and easy to get in that country.
 
 ### Usage
 The program is split in two parts. Part one (`gen_Bier.save.py`) generates a list of "all" beers available in
@@ -33,7 +33,7 @@ python local_fruits.py neur0 200 de
 generates a text file with all the German beers with more then 200 ratings that neur0 hasn't rated.
 
 ### Disclaimer
-I wrote this pretty quickly, half in German, half in English, so so code is close to unreadable (even for me). Also
+I wrote this pretty quickly, half in German, half in English, so the code is close to unreadable (even for me). Also
 [ratebeer.py](https://github.com/alilja/ratebeer) returned some errors and I just started to ignore them. So maybe this
 will not be a complete list of <b>low hanging fruits</b>, but it's the next step to get some quick ratings.<br>
 This program is only tested with Python 3.6 on a Linux machine.
