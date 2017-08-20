@@ -1,4 +1,4 @@
-## Content
+<h2 id="Content">Content</h2>
 
 1. [Ratebeer Shopping Helper](#RSH)<br>
 1.1 [Pupose](#RSHPurpose)<br>
@@ -17,37 +17,37 @@
 
 <h1 id="RSH">Ratebeer Shopping Helper</h1>
 
-This little script will help you buy beers for you and other __Ratebeerians__.
+This little script will help you buy beers for you and other <b>Ratebeerians</b>.
 
 <h3 id="RSHPupose">Purpose</h3>
 This script will allow you to search the ratings of you and your friends, and will show you who already rated the wanted beer.
 
 <h3 id="RSHUsage">Usage</h3>
-1. Download all your ratings (click on _My Account → My Beer Ratings → Compile My Ratings_; leave the standard delimiter "|")<br>
+1. Download all your ratings (click on <i>My Account → My Beer Ratings → Compile My Ratings</i> ; leave the standard delimiter "|")<br>
 2. Get your friend(s) to send you  their ratings<br>
-3. Put the `*.csv` files in the _Ratings_ folder<br>
+3. Put the `*.csv` files in the <i>Ratings</i> folder<br>
 4. Run `prepare_data.py` once for each user (prepare_data.py is only tested on a Linuxmachine)<br>
-5. Install _QPython3_ or a similar app on your mobile device<br>
-6. Copy the `compare.py` and all needed __\*.ratings__ files to the mobile device<br>
+5. Install <i>QPython3</i> or a similar app on your mobile device<br>
+6. Copy the `compare.py` and all needed <b>\*.ratings</b> files to the mobile device<br>
 7. Start `compare.py` and have fun<br><br>
 
-If you run the program only on a computer item __6)__ and __7)__ are unnecessary.
+If you run the program only on a computer item <b>6)</b> and <b>7)</b> are unnecessary.
 
 <h3 id="RSHLicense">License</h3>
 This and all versions is/will be licensed under the [GPLv3](./neur0nic/Ratebeer-Shopping-Helper/LICENSE).
 
 <h3 id="RSHDisclaimer">Disclaimer</h3>
-This is just a little fun project I do, so I can buy some beers for _jfb_'s next visit. There will be most likely
+This is just a little fun project I do, so I can buy some beers for <i>jfb</i> 's next visit. There will be most likely
 no maintaining. If you find a bug in this project, you can contact me on [github](https://github.com/neur0nic) or on
 [ratebeer](https://www.ratebeer.com/user/133619/).
 <br>This script is only tested on an Linux machine with Python 3.6 and an Android 4.2 with QPython3.
 
 <h3 id="RSHError">Error</h3>
 <h4 id="RSHFnf">File not found</h4>
-If the program on your mobile device returns something like _file *.ratings not found_, you probably need to change
-`compare.py` line __53__ to your actual working directory.
+If the program on your mobile device returns something like <i>file *.ratings not found</i> , you probably need to change
+`compare.py` line <b>53</b> to your actual working directory.
 <h4 id="RSHnmnt">no module named termcolor</h4>
-I had to manually install the _termcolor_ package to my Android app
+I had to manually install the <i>termcolor</i> package to my Android app
 
 
 <h1 id="LHF">Low Hanging Fruits</h1>
@@ -86,5 +86,5 @@ generates a text file with all the German beers with more then 200 ratings that 
 <h3 id="LHFDisclaimer">Disclaimer</h3>
 I wrote this pretty quickly, half in German, half in English, so the code is close to unreadable (even for me). Also
 [ratebeer.py](https://github.com/alilja/ratebeer) returned some errors and I just started ignoring them. So maybe this
-will not be a complete list of __low hanging fruits__, but it's the next step to get some quick ratings.<br>
+will not be a complete list of <b>low hanging fruits</b>, but it's the next step to get some quick ratings.<br>
 This program is only tested with Python 3.6 on a Linux machine.
