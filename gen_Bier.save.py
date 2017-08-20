@@ -8,16 +8,11 @@ def check_breweries():
     compare_lst_of_breweries()
     load_brewery_info()
 
-
-def load_beers():
-    load_all_beers()
-
-
 if __name__ == '__main__':
     start_time = time()
 
     check_breweries()
-    load_beers()
+    load_all_beers(sys.argv[3])
     rm_savefiles_1()
 
     duration = ddhhmmss((time() - start_time))

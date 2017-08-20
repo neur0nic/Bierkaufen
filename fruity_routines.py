@@ -10,6 +10,13 @@ rb = ratebeer.RateBeer()
 
 
 def ddhhmmss(seconds):
+    """
+    Converts seconds in a human readable format.
+
+    :param seconds: seconds (float)
+    :return : days, hours, minutes, seconds (tuple)
+    """
+
     s_per_d = 86400
     s_per_h = 3600
     s_per_m = 60
@@ -21,6 +28,12 @@ def ddhhmmss(seconds):
 
 
 def cleanup(objekte):
+    """
+    Removes duplicates in brewery- or beer-object lists
+    :param objekte: list of brewery- or beer-objects from ratebeer.py
+    :return: list of brewery- or beer-objects
+    """
+
     clean = []
     save = []
     for i in objekte:
@@ -34,7 +47,13 @@ def cleanup(objekte):
     return clean
 
 
-def progressBar(current, total):
+def progress_bar(current, total):
+    """
+    Creates an progress bar for iterative processes.
+    :param current: number of iterations already done (int)
+    :param total: total number of iterations (int)
+    """
+
     i = round((current / total) * 100, 1)
     strdone = int(round(i, 0)) * '█'
     strundone = (100 - int(round(i, 0))) * '█'
@@ -42,12 +61,19 @@ def progressBar(current, total):
     print(totstr, end='\r')
 
 
-def ownRatings():
+def ownRatings(username):
+    """
+    Reads the downloaded ratings form ratebeer.com and converts them into a list.
+    :param username: ratebeer username (str)
+    :return: list of list. The inner lists are the ratings with the attributes
+        ['BeerID', 'Beer', 'Country', 'State', 'Style']
+    """
+
     dirContent = os.listdir("./")
     switch = False
     files = []
     while True:
-        user = sys.argv[1]
+        user = username
         if isinstance(user, str):
             for i in dirContent:
                 if user in i:
@@ -73,6 +99,12 @@ def ownRatings():
 
 
 def getBreweries(query):
+    """
+    Search for breweries on ratebeer.com
+    :param query: search term (str)
+    :return: a list of brewery-generator-objects
+    """
+
     resultNew = []
     try:
         result = rb.search(query.lower())
@@ -83,6 +115,11 @@ def getBreweries(query):
 
 
 def compare_lst_of_breweries():
+    """
+    Iterates through the breweries.lst file and tries to find the breweries on ratebeer.com
+    :return: stores a list of brewery-generator-objects in brewery.save
+    """
+
     print('\n Compare the list of breweries with the breweries on ratebeer.com')
     with open("breweries.lst", "r") as fr:
         read_breweries = fr.readlines()
@@ -96,12 +133,13 @@ def compare_lst_of_breweries():
     counter = 0
     for i in breweries:
         counter += 1
-        progressBar(counter, itertotal)
+        progress_bar(counter, itertotal)
         try:
-            resultat = getBreweries(i)
+            result = getBreweries(i)
         except:
+            result = []
             pass
-        for j in resultat:
+        for j in result:
             ratebeer_breweries.append(j)
     print()
 
@@ -111,6 +149,11 @@ def compare_lst_of_breweries():
 
 
 def load_brewery_info():
+    """
+    Populates the list of brewery-generator-objects.
+    :return: stores a list of brewery-objects in brewery_info.save
+    """
+
     print('\n Downloading the infos of the breweries from ratebeer and filtering the breweries by the '
           'location "' + str(sys.argv[3]) + '".')
     with open('brewery.save', 'rb') as fr: ratebeer_breweries = pickle.load(fr)
@@ -120,7 +163,7 @@ def load_brewery_info():
     counter = 0
     for i in ratebeer_breweries:
         counter += 1
-        progressBar(counter, itertotal)
+        progress_bar(counter, itertotal)
         try:
             brewerie_info.append(i._populate())
         except:
@@ -130,13 +173,19 @@ def load_brewery_info():
     with open('brewery_info.save', 'wb') as fw: pickle.dump(brewerie_info, fw)
 
 
-def load_all_beers():
+def load_all_beers(locale):
+    """
+    Loads the beer-generator-objects of the breweries and populates then.
+    :param locale: ISO 3166-1 country code (str)
+    :return: stores list of beer-objects to *-Biere.save
+    """
+
     print('\n Downloading the beers for the breweries, including their information.')
     with open('brewery_info.save', 'rb') as fr: brewerie_info = pickle.load(fr)
     
-    if sys.argv[3] == 'at':
+    if locale == 'at':
         country = 'Austria'
-    elif sys.argv[3] == 'ch':
+    elif locale == 'ch':
         country = 'Switzerland'
     else:
         country = 'Germany'
@@ -154,7 +203,7 @@ def load_all_beers():
     counter = 0
     for i in local_breweries:
         counter += 1
-        progressBar(counter, itertotal)
+        progress_bar(counter, itertotal)
         z = i.get_beers()
         try:
             for j in z:
@@ -181,13 +230,21 @@ def load_all_beers():
     with open(beerfile, 'wb') as fw: pickle.dump(beer, fw)
 
 
-def filter_beers():
+def filter_beers(locale, minrate, username):
+    """
+    Filters beers by minimal amount of ratings and filters the already rated beers.
+    :param locale: ISO 3166-1 country code (str)
+    :param minrate: minimal amount of ratings (int)
+    :param username: ratebeer username (str)
+    :return: stores a list of beer-objects in Unrated.save
+    """
+
     print('\n Filtering the already rated beers. Filtering the beers below minimal amount of ratings (' + str(sys.argv[2]) + ').')
-    if sys.argv[3] == 'ch':
+    if locale == 'ch':
         beerfile = 'ch-Biere.save'
-    elif sys.argv[3] == 'de':
+    elif locale == 'de':
         beerfile = 'de-Biere.save'
-    elif sys.argv[3] == 'at':
+    elif locale == 'at':
         beerfile = 'at-Biere.save'
     else:
         beerfile = 'Biere.save'
@@ -199,11 +256,11 @@ def filter_beers():
     counter = 0
     for i in beer:
         counter += 1
-        progressBar(counter, itertotal)
-        if i.__dict__['num_ratings'] >= int(sys.argv[2]):
+        progress_bar(counter, itertotal)
+        if i.__dict__['num_ratings'] >= int(minrate):
             popular_beers.append(i)
 
-    ratings = ownRatings()
+    ratings = ownRatings(username)
 
     unrated = []
     for i in popular_beers:
@@ -220,6 +277,11 @@ def filter_beers():
 
 
 def sort_and_encoding():
+    """
+    Sorts the beers by name and removes artifacts from encoding
+    :return: stores a list of beers (str) in storable.save
+    """
+
     with open('Unrated.save', 'rb') as fr: unrated = pickle.load(fr)
 
     sortable = []
@@ -240,15 +302,28 @@ def sort_and_encoding():
     with open('storable.save', 'wb') as fw: pickle.dump(storable, fw)
 
 
-def save_beers():
+def save_beers(username, locale):
+    """
+    Stores the list of beernames into a human readable file
+    :param locale: ISO 3166-1 country code (str)
+    :param username: ratebeer username (str)
+    :return: plain text file with beernames
+    """
+
     with open('storable.save', 'rb') as fr: storable = pickle.load(fr)
-    with open((sys.argv[1] + "s_popular_unrated-" + sys.argv[3] + ".txt"), "w") as fw:
+    with open((username + "s_popular_unrated-" + locale + ".txt"), "w") as fw:
         for i in storable:
             fw.write((i + "\n"))
-    print('\n\n Your low hanging fruits are saved as ' + sys.argv[1] + "s_popular_unrated-" + sys.argv[3] + ".txt")
+    print('\n\n Your low hanging fruits are saved as ' + username + "s_popular_unrated-" + locale + ".txt")
 
 
 def addToLog(Fehler):
+    """
+    Stores errors to local file
+    :param Fehler: error message (str)
+    :return: stores error messages with timecode to Fehler.log
+    """
+
     if isinstance(Fehler, str):
         time = strftime("%Y-%m-%d: %H:%M:%S - ")
         with open('Fehler.log', 'a') as fa: fa.write(time + Fehler)
@@ -257,11 +332,19 @@ def addToLog(Fehler):
 
 
 def rm_savefiles_1():
+    """
+    Removes the files creates during gen_Bier.save.py
+    """
+
     os.remove('brewery.save')
     os.remove('brewery_info.save')
     os.remove('beers.failsave')
 
 
 def rm_savefiles_2():
+    """
+    Removes the files creates during local_fruits.py
+    """
+
     os.remove('Unrated.save')
     os.remove('storable.save')
