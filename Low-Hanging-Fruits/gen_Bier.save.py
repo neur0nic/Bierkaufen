@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from fruity_routines import *
 from time import time
+
+from fruity_routines import *
 
 
 def check_breweries():

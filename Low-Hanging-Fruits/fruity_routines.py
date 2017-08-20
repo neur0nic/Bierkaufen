@@ -7,6 +7,11 @@ from termcolor import colored
 from time import strftime
 
 rb = ratebeer.RateBeer()
+wdir = os.getcwd()
+if '/Low-Hanging-Fruits' in wdir: wdir = wdir[:wdir.find('/Low-Hanging-Fruits')]
+tmpdir = wdir + '/Low-Hanging-Fruits/tmp/'
+rtngdir =wdir + '/Ratings/'
+lhfdir = wdir + '/Low-Hanging-Fruits/'
 
 
 def ddhhmmss(seconds):
@@ -69,7 +74,8 @@ def ownRatings(username):
         ['BeerID', 'Beer', 'Country', 'State', 'Style']
     """
 
-    dirContent = os.listdir("./")
+    global rtngdir
+    dirContent = os.listdir(rtngdir)
     switch = False
     files = []
     while True:
@@ -86,7 +92,7 @@ def ownRatings(username):
 
     ratings = []
     for i in files:
-        with open(i, "r") as f:
+        with open((rtngdir + i), "r") as f:
             read = csv.reader(f, delimiter='|')
             for i in read:
                 ratings.append(i)
@@ -119,9 +125,10 @@ def compare_lst_of_breweries():
     Iterates through the breweries.lst file and tries to find the breweries on ratebeer.com
     :return: stores a list of brewery-generator-objects in brewery.save
     """
-
+    global rtngdir
+    global tmpdir
     print('\n Compare the list of breweries with the breweries on ratebeer.com')
-    with open("breweries.lst", "r") as fr:
+    with open((lhfdir + "breweries.lst"), "r") as fr:
         read_breweries = fr.readlines()
 
     breweries = []
@@ -145,7 +152,7 @@ def compare_lst_of_breweries():
 
     ratebeer_breweries = cleanup(ratebeer_breweries)
 
-    with open('brewery.save', 'wb') as fw: pickle.dump(ratebeer_breweries, fw)
+    with open((tmpdir + 'brewery.save'), 'wb') as fw: pickle.dump(ratebeer_breweries, fw)
 
 
 def load_brewery_info():
@@ -154,9 +161,10 @@ def load_brewery_info():
     :return: stores a list of brewery-objects in brewery_info.save
     """
 
+    global tmpdir
     print('\n Downloading the infos of the breweries from ratebeer and filtering the breweries by the '
           'location "' + str(sys.argv[3]) + '".')
-    with open('brewery.save', 'rb') as fr: ratebeer_breweries = pickle.load(fr)
+    with open((tmpdir + 'brewery.save'), 'rb') as fr: ratebeer_breweries = pickle.load(fr)
 
     brewerie_info = []
     itertotal = len(ratebeer_breweries)
@@ -170,7 +178,7 @@ def load_brewery_info():
             addToLog("Brewery skipped: " + str(i.__dict__['url']) + "; _populate returned an error.\n")
     print()
 
-    with open('brewery_info.save', 'wb') as fw: pickle.dump(brewerie_info, fw)
+    with open((tmpdir + 'brewery_info.save'), 'wb') as fw: pickle.dump(brewerie_info, fw)
 
 
 def load_all_beers(locale):
@@ -180,8 +188,9 @@ def load_all_beers(locale):
     :return: stores list of beer-objects to *-Biere.save
     """
 
+    global tmpdir
     print('\n Downloading the beers for the breweries, including their information.')
-    with open('brewery_info.save', 'rb') as fr: brewerie_info = pickle.load(fr)
+    with open((tmpdir + 'brewery_info.save'), 'rb') as fr: brewerie_info = pickle.load(fr)
 
     ccodes = {'at': 'Austria', 'ch': 'Switzerland', 'de': 'Germany'}
     try:
@@ -208,7 +217,7 @@ def load_all_beers(locale):
             for j in z:
                 try:
                     beer.append(j._populate())
-                    with open('beers.failsave', 'wb') as fw: pickle.dump(beer, fw)
+                    with open((tmpdir + 'beers.failsave'), 'wb') as fw: pickle.dump(beer, fw)
                 except:
                     addToLog('Beer skipped: ' + str(j) + '; error while redirecting from alias.\n')
         except:
@@ -219,7 +228,7 @@ def load_all_beers(locale):
         beerfile = locale + '-Biere.save'
     except:
         beerfile = 'de-Biere.save'
-    with open(beerfile, 'wb') as fw: pickle.dump(beer, fw)
+    with open((lhfdir + beerfile), 'wb') as fw: pickle.dump(beer, fw)
 
 
 def filter_beers(locale, minrate, username):
@@ -231,13 +240,15 @@ def filter_beers(locale, minrate, username):
     :return: stores a list of beer-objects in Unrated.save
     """
 
+    global lhfdir
+    global tmpdir
     print('\n Filtering the already rated beers. Filtering the beers below minimal amount of ratings (' + str(sys.argv[2]) + ').')
     try:
         beerfile = locale + '-Biere.save'
     except:
         beerfile = 'de-Biere.save'
 
-    with open(beerfile, 'rb') as fr: beer = pickle.load(fr)
+    with open((lhfdir + beerfile), 'rb') as fr: beer = pickle.load(fr)
 
     popular_beers = []
     itertotal = len(beer)
@@ -261,7 +272,7 @@ def filter_beers(locale, minrate, username):
 
     unrated = cleanup(unrated)
     
-    with open('Unrated.save', 'wb') as fw: pickle.dump(unrated, fw)
+    with open((tmpdir + 'Unrated.save'), 'wb') as fw: pickle.dump(unrated, fw)
 
 
 def sort_and_encoding():
@@ -270,7 +281,8 @@ def sort_and_encoding():
     :return: stores a list of beers (str) in storable.save
     """
 
-    with open('Unrated.save', 'rb') as fr: unrated = pickle.load(fr)
+    global tmpdir
+    with open((tmpdir + 'Unrated.save'), 'rb') as fr: unrated = pickle.load(fr)
 
     sortable = []
     for i in unrated:
@@ -287,7 +299,7 @@ def sort_and_encoding():
             .replace('Ã³', 'ó').replace('Ã¯', 'ï').replace('Ãº', 'ú').replace('Ã', 'É').replace('Ã', 'Ò')
         storable.append(z)
 
-    with open('storable.save', 'wb') as fw: pickle.dump(storable, fw)
+    with open((tmpdir + 'storable.save'), 'wb') as fw: pickle.dump(storable, fw)
 
 
 def save_beers(username, locale):
@@ -298,11 +310,13 @@ def save_beers(username, locale):
     :return: plain text file with beernames
     """
 
-    with open('storable.save', 'rb') as fr: storable = pickle.load(fr)
-    with open((username + "s_popular_unrated-" + locale + ".txt"), "w") as fw:
+    global tmpdir
+    global rtngdir
+    with open((tmpdir + 'storable.save'), 'rb') as fr: storable = pickle.load(fr)
+    with open((rtngdir + username + "s_popular_unrated-" + locale + ".txt"), "w") as fw:
         for i in storable:
             fw.write((i + "\n"))
-    print('\n\n Your low hanging fruits are saved as ' + username + "s_popular_unrated-" + locale + ".txt")
+    print('\n\n Your low hanging fruits are saved as ' + rtngdir + username + "s_popular_unrated-" + locale + ".txt")
 
 
 def addToLog(Fehler):
@@ -312,9 +326,10 @@ def addToLog(Fehler):
     :return: stores error messages with timecode to Fehler.log
     """
 
+    global lhfdir
     if isinstance(Fehler, str):
         time = strftime("%Y-%m-%d: %H:%M:%S - ")
-        with open('Fehler.log', 'a') as fa: fa.write(time + Fehler)
+        with open((lhfdir + 'Fehler.log'), 'a') as fa: fa.write(time + Fehler)
     else:
         pass
 
@@ -324,9 +339,10 @@ def rm_savefiles_1():
     Removes the files creates during gen_Bier.save.py
     """
 
-    os.remove('brewery.save')
-    os.remove('brewery_info.save')
-    os.remove('beers.failsave')
+    global tmpdir
+    os.remove(tmpdir + 'brewery.save')
+    os.remove(tmpdir + 'brewery_info.save')
+    os.remove(tmpdir + 'beers.failsave')
 
 
 def rm_savefiles_2():
@@ -334,5 +350,6 @@ def rm_savefiles_2():
     Removes the files creates during local_fruits.py
     """
 
-    os.remove('Unrated.save')
-    os.remove('storable.save')
+    global tmpdir
+    os.remove(tmpdir + 'Unrated.save')
+    os.remove(tmpdir + 'storable.save')

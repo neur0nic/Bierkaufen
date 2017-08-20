@@ -28,7 +28,7 @@ This script will allow you to search the ratings of you and your friends, and wi
 3. Put ths `*.csv` files in the _Ratings_ folder
 4. Run `prepare_data.py` once for each user (prepare_data.py is only tested on a Linuxmachine)
 5. Install _QPython3_ or a similar app on your mobile device
-6. Copy the `compare.py` and all needed __*.ratings__ files to the same folder on the mobile device
+6. Copy the `compare.py` and all needed __\*.ratings__ files to the same folder on the mobile device
 7. Start `compare.py` and have fun
 
 If you run the program only on a computer item __6)__ and __7)__ are unnecessary.

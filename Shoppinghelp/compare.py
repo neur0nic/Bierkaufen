@@ -16,15 +16,24 @@ import os
 from termcolor import colored
 import platform
 
+wdir = os.getcwd()
+if '/Shoppinghelp' in wdir: wdir = wdir[:wdir.find('/Shoppinghelp')]
+machine = platform.machine()
+if (machine == 'armv7l'):
+    wdir = ('/storage/emulated/0/qpython/scripts3/')
+
+rtngdir = wdir + '/Ratings/'
+shdir = wdir + '/Shoppinghelp/'
+
+
 def loaddata():
     # Load and sort data
+    global shdir
+    global rtngdir
+
     while True:
         available = []
-        machine = platform.machine()
-        wdir = ("./")
-        if (machine == 'armv7l'):
-            wdir = ('/storage/emulated/0/qpython/scripts3/')
-        inDir = os.listdir(wdir)
+        inDir = os.listdir(rtngdir)
         for i in inDir:
             if i[-8:] == ".ratings":
                 available.append(i[0:-8])
@@ -66,14 +75,10 @@ def loaddata():
                     else: print("Error: Typo in username or ratings are not available. Please try again. ")
         break
     ratings = []
-    machine = platform.machine()
-    wdir = ("./")
-    if (machine == 'armv7l'):
-        wdir = ('/storage/emulated/0/qpython/scripts3/')
     for i in users: ratings.append(i.split())
     for i in range(0, len(users)):
         # with open((users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
-        with open((wdir + users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
+        with open((rtngdir + users[i] + ".ratings"), "rb") as f: ratings[i].append(pickle.load(f))
     return ratings
 
 

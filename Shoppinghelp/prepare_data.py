@@ -4,8 +4,12 @@ import csv
 import os
 import pickle
 
+wdir = os.getcwd()
+if '/Shoppinghelp' in wdir: wdir = wdir[:wdir.find('/Shoppinghelp')]
+rtngdir =wdir + '/Ratings/'
+shdir = wdir + '/Shoppinghelp/'
 
-dirContent = os.listdir("./")
+dirContent = os.listdir(rtngdir)
 switch = False
 files = []
 while True:
@@ -23,7 +27,7 @@ while True:
 
 ratings = []
 for i in files:
-    with open(i, "r") as f:
+    with open((rtngdir + i), "r") as f:
         read = csv.reader(f, delimiter='|')
         for i in read:
             ratings.append(i)
@@ -32,6 +36,6 @@ ratingsNew = []
 for i in ratings: ratingsNew.append(i[1])
 
 container = (user + ".ratings")
-with open(container, "wb") as f: pickle.dump(ratingsNew, f)
+with open((rtngdir + container), "wb") as f: pickle.dump(ratingsNew, f)
 
 

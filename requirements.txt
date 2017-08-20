@@ -1,0 +1,2 @@
+ratebeer [git preferred to pip]
+termcolor
