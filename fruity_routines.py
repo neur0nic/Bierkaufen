@@ -182,13 +182,12 @@ def load_all_beers(locale):
 
     print('\n Downloading the beers for the breweries, including their information.')
     with open('brewery_info.save', 'rb') as fr: brewerie_info = pickle.load(fr)
-    
-    if locale == 'at':
-        country = 'Austria'
-    elif locale == 'ch':
-        country = 'Switzerland'
-    else:
-        country = 'Germany'
+
+    ccodes = {'at': 'Austria', 'ch': 'Switzerland', 'de': 'Germany'}
+    try:
+        country = ccodes[locale]
+    except:
+        country = ccodes['de']
     
     local_breweries = []
     for i in brewerie_info:
@@ -216,17 +215,10 @@ def load_all_beers(locale):
             addToLog('Empty brewery object.\n')
     print()
 
-
-
-    if sys.argv[3] == 'ch':
-        beerfile = 'ch-Biere.save'
-    elif sys.argv[3] == 'de':
+    try:
+        beerfile = locale + '-Biere.save'
+    except:
         beerfile = 'de-Biere.save'
-    elif sys.argv[3] == 'at':
-        beerfile = 'at-Biere.save'
-    else:
-        beerfile = 'Biere.save'
-
     with open(beerfile, 'wb') as fw: pickle.dump(beer, fw)
 
 
@@ -240,14 +232,10 @@ def filter_beers(locale, minrate, username):
     """
 
     print('\n Filtering the already rated beers. Filtering the beers below minimal amount of ratings (' + str(sys.argv[2]) + ').')
-    if locale == 'ch':
-        beerfile = 'ch-Biere.save'
-    elif locale == 'de':
+    try:
+        beerfile = locale + '-Biere.save'
+    except:
         beerfile = 'de-Biere.save'
-    elif locale == 'at':
-        beerfile = 'at-Biere.save'
-    else:
-        beerfile = 'Biere.save'
 
     with open(beerfile, 'rb') as fr: beer = pickle.load(fr)
 

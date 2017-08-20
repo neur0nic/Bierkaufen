@@ -4,9 +4,9 @@ from time import time
 
 
 def check_breweries():
-
     compare_lst_of_breweries()
     load_brewery_info()
+
 
 if __name__ == '__main__':
     start_time = time()
