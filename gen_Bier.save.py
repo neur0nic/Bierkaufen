@@ -3,21 +3,22 @@ from fruity_routines import *
 from time import time
 
 
-def checkBrauereien():
+def check_breweries():
 
-    brauereienAbgleichen()
-    brauerienInfosLaden()
+    compare_lst_of_breweries()
+    load_brewery_info()
 
 
-def ladeBiere():
-    bierlisteLaden()
+def load_beers():
+    load_all_beers()
 
 
 if __name__ == '__main__':
     start_time = time()
 
-    checkBrauereien()
-    bierlisteLaden()
+    check_breweries()
+    load_beers()
+    rm_savefiles_1()
 
     duration = ddhhmmss((time() - start_time))
     print("\n Program ran for: %sd %sh %sm %ss" % duration)

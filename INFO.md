@@ -10,7 +10,7 @@ The program is split in two parts. Part one (`gen_Bier.save.py`) generates a lis
 a country. Part two (`local_fruits.py`) generates a text-file that list the names of the missing ratings.
 
 #### gen_Bier.save.py
-A list of all the breweies in the country is need and stored as `Brauereien.lst` in the programs directory. Only
+A list of all the breweies in the country is need and stored as `breweries.lst` in the programs directory. Only
 one brewery per line and no special character (less is more).
 ```sh
 python gen_Bier.save.py - - de
