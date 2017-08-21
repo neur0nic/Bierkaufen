@@ -52,17 +52,18 @@ def cleanup(objekte):
     return clean
 
 
-def progress_bar(current, total):
+def progress_bar(current, total, progress=""):
     """
     Creates an progress bar for iterative processes.
-    :param current: number of iterations already done (int)
-    :param total: total number of iterations (int)
+    :param current:     number of iterations already done (int)
+    :param total:       total number of iterations (int)
+    :param progress:    name or status of the progress represented by the bar; str
     """
-
+    if not isinstance(progress, str): progress = ""
     i = round((current / total) * 100, 1)
     strdone = int(round(i, 0)) * '█'
     strundone = (100 - int(round(i, 0))) * '█'
-    totstr = "|" + colored(strdone, 'green') + colored(strundone, 'red') + "| " + str(i) + "%"
+    totstr = "|" + colored(strdone, 'green') + colored(strundone, 'red') + "| " + str(i) + "% | " + progress + (" " * 10)
     print(totstr, end='\r')
 
 
@@ -140,7 +141,7 @@ def compare_lst_of_breweries():
     counter = 0
     for i in breweries:
         counter += 1
-        progress_bar(counter, itertotal)
+        progress_bar(counter, itertotal, i)
         try:
             result = getBreweries(i)
         except:
@@ -171,7 +172,7 @@ def load_brewery_info():
     counter = 0
     for i in ratebeer_breweries:
         counter += 1
-        progress_bar(counter, itertotal)
+        progress_bar(counter, itertotal, progress=i.__dict__['url'][9:29])
         try:
             brewerie_info.append(i._populate())
         except:
@@ -211,7 +212,7 @@ def load_all_beers(locale):
     counter = 0
     for i in local_breweries:
         counter += 1
-        progress_bar(counter, itertotal)
+        progress_bar(counter, itertotal, progress=i.name)
         z = i.get_beers()
         try:
             for j in z:
