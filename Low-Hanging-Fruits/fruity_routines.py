@@ -10,7 +10,7 @@ rb = ratebeer.RateBeer()
 wdir = os.getcwd()
 if '/Low-Hanging-Fruits' in wdir: wdir = wdir[:wdir.find('/Low-Hanging-Fruits')]
 tmpdir = wdir + '/Low-Hanging-Fruits/tmp/'
-rtngdir =wdir + '/Ratings/'
+rtngdir = wdir + '/Ratings/'
 lhfdir = wdir + '/Low-Hanging-Fruits/'
 
 
@@ -353,3 +353,11 @@ def rm_savefiles_2():
     global tmpdir
     os.remove(tmpdir + 'Unrated.save')
     os.remove(tmpdir + 'storable.save')
+
+
+def create_folders():
+    global tmpdir
+    try:
+        os.listdir(tmpdir)
+    except:
+        os.mkdir(tmpdir)

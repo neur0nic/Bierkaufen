@@ -12,6 +12,7 @@ def check_breweries():
 if __name__ == '__main__':
     start_time = time()
 
+    create_folders()
     check_breweries()
     load_all_beers(sys.argv[3])
     rm_savefiles_1()
