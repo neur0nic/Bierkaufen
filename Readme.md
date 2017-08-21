@@ -19,7 +19,7 @@
 
 This little script will help you buy beers for you and other <b>Ratebeerians</b>.
 
-### Pupose
+### Purpose
 This script will allow you to search the ratings of you and your friends, and will show you who already rated the wanted beer.
 
 ### Usage
