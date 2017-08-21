@@ -1,7 +1,7 @@
 <h2 id="Content">Content</h2>
 
 1. [Ratebeer Shopping Helper](#ratebeer-shopping-helper)<br>
-1.1 [Pupose](#purpose)<br>
+1.1 [Purpose](#purpose)<br>
 1.2 [Usage](#usage)<br>
 1.3 [License](#license)<br>
 1.4 [Disclaimer](#disclaimer)<br>
@@ -9,13 +9,13 @@
 1.5.1 [File not found](#file-not-found)<br>
 1.5.2 [no module named termcolor](#no-module-named-termcolor)<br><br>
 2. [Low Hanging Fruits](#low-hanging-fruits)<br>
-2.1 [Pupose](#purpose-1)<br>
+2.1 [Purpose](#purpose-1)<br>
 2.2 [Usage](#usage-1)<br>
 2.2.1 [gen_Bier.save.py](#gen_biersavepy)<br>
 2.2.2 [local_fruits.py](#local_fruitspy)<br>
 2.4 [Disclaimer](#disclaimer-1)<br>
 
-#Ratebeer Shopping Helper
+# Ratebeer Shopping Helper
 
 This little script will help you buy beers for you and other <b>Ratebeerians</b>.
 
@@ -61,7 +61,7 @@ common beers and easy to get in that country.
 The program is split into two parts. Part one (`gen_Bier.save.py`) generates a list of "all" beers available in
 a country. Part two (`local_fruits.py`) generates a text-file that list the names of the missing ratings.
 
-#### en_Bier.save.py
+#### gen_Bier.save.py
 A list of all the breweies in the country is need and stored as `breweries.lst` in the same folder as `gen_Bier.save.py`.
 Only one brewery per line and no special character (less is more).
 ```sh
